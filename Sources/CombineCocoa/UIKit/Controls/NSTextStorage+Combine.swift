@@ -13,19 +13,22 @@
   @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension PublishersProxy where Base: NSTextStorage {
     /// Combine publisher for `NSTextStorageDelegate.textStorage(_:didProcessEditing:range:changeInLength:)`
-    public var didProcessEditingRangeChangeInLength: AnyPublisher<
-      (
-        editedMask: NSTextStorage.EditActions,
-        editedRange: NSRange,
-        delta: Int
-      ),
-      Never
-    > {
+    public var didProcessEditingRangeChangeInLength:
+      AnyPublisher<
+        (
+          editedMask: NSTextStorage.EditActions,
+          editedRange: NSRange,
+          delta: Int
+        ),
+        Never
+      >
+    {
       let selector = #selector(
         NSTextStorageDelegate.textStorage(_:didProcessEditing:range:changeInLength:)
       )
 
-      return delegateProxy
+      return
+        delegateProxy
         .interceptSelectorPublisher(selector)
         .map { args -> (editedMask: NSTextStorage.EditActions, editedRange: NSRange, delta: Int) in
           let editedMask = NSTextStorage.EditActions(rawValue: args[1] as! UInt)

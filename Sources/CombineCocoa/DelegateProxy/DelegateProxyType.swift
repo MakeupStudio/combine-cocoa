@@ -27,8 +27,7 @@
 
       if let associatedObject = objc_getAssociatedObject(object, &associatedKey) as? Self {
         delegateProxy = associatedObject
-      }
-      else {
+      } else {
         delegateProxy = Self.init()
         objc_setAssociatedObject(
           object,

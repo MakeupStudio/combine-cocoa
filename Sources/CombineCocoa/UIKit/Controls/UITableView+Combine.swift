@@ -14,9 +14,7 @@
   @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension PublishersProxy where Base: UITableView {
     /// Combine wrapper for `tableView(_:willDisplay:forRowAt:)`
-    public var willDisplayCell:
-      AnyPublisher<(cell: UITableViewCell, indexPath: IndexPath), Never>
-    {
+    public var willDisplayCell: AnyPublisher<(cell: UITableViewCell, indexPath: IndexPath), Never> {
       let selector = #selector(UITableViewDelegate.tableView(_:willDisplay:forRowAt:))
       return delegateProxy.interceptSelectorPublisher(selector)
         .map { ($0[1] as! UITableViewCell, $0[2] as! IndexPath) }
@@ -24,9 +22,7 @@
     }
 
     /// Combine wrapper for `tableView(_:willDisplayHeaderView:forSection:)`
-    public var willDisplayHeaderView:
-      AnyPublisher<(headerView: UIView, section: Int), Never>
-    {
+    public var willDisplayHeaderView: AnyPublisher<(headerView: UIView, section: Int), Never> {
       let selector = #selector(UITableViewDelegate.tableView(_:willDisplayHeaderView:forSection:))
       return delegateProxy.interceptSelectorPublisher(selector)
         .map { ($0[1] as! UIView, $0[2] as! Int) }
@@ -34,9 +30,7 @@
     }
 
     /// Combine wrapper for `tableView(_:willDisplayFooterView:forSection:)`
-    public var willDisplayFooterView:
-      AnyPublisher<(footerView: UIView, section: Int), Never>
-    {
+    public var willDisplayFooterView: AnyPublisher<(footerView: UIView, section: Int), Never> {
       let selector = #selector(UITableViewDelegate.tableView(_:willDisplayFooterView:forSection:))
       return delegateProxy.interceptSelectorPublisher(selector)
         .map { ($0[1] as! UIView, $0[2] as! Int) }
@@ -54,9 +48,7 @@
     }
 
     /// Combine wrapper for `tableView(_:didEndDisplayingHeaderView:forSection:)`
-    public var didEndDisplayingHeaderView:
-      AnyPublisher<(headerView: UIView, section: Int), Never>
-    {
+    public var didEndDisplayingHeaderView: AnyPublisher<(headerView: UIView, section: Int), Never> {
       let selector = #selector(
         UITableViewDelegate.tableView(_:didEndDisplayingHeaderView:forSection:)
       )

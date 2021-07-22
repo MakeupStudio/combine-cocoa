@@ -8,7 +8,7 @@ let package = Package(
     .library(
       name: "CombineCocoa",
       targets: ["CombineCocoa"]
-    ),
+    )
   ],
   dependencies: [
     .package(

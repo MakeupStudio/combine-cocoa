@@ -56,14 +56,16 @@
     }
 
     /// Combine wrapper for `collectionView(_:willDisplaySupplementaryView:forElementKind:at:)`
-    public var willDisplaySupplementaryView: AnyPublisher<
-      (
-        supplementaryView: UICollectionReusableView,
-        elementKind: String,
-        indexPath: IndexPath
-      ),
-      Never
-    > {
+    public var willDisplaySupplementaryView:
+      AnyPublisher<
+        (
+          supplementaryView: UICollectionReusableView,
+          elementKind: String,
+          indexPath: IndexPath
+        ),
+        Never
+      >
+    {
       let selector = #selector(
         UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)
       )
@@ -85,14 +87,16 @@
     }
 
     /// Combine wrapper for `collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)`
-    public var didEndDisplaySupplementaryView: AnyPublisher<
-      (
-        supplementaryView: UICollectionReusableView,
-        elementKind: String,
-        indexPath: IndexPath
-      ),
-      Never
-    > {
+    public var didEndDisplaySupplementaryView:
+      AnyPublisher<
+        (
+          supplementaryView: UICollectionReusableView,
+          elementKind: String,
+          indexPath: IndexPath
+        ),
+        Never
+      >
+    {
       let selector = #selector(
         UICollectionViewDelegate.collectionView(
           _:

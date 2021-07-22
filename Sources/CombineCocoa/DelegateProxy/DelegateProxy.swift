@@ -29,8 +29,7 @@
     public func intercept(_ selector: Selector, _ handler: @escaping ([Any]) -> Void) {
       if dict[selector] != nil {
         dict[selector]?.append(handler)
-      }
-      else {
+      } else {
         dict[selector] = [handler]
       }
     }

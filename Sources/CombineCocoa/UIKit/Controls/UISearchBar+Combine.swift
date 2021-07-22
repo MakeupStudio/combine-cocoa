@@ -15,7 +15,8 @@
     /// Combine wrapper for `UISearchBarDelegate.searchBar(_:textDidChange:)`
     public var textDidChange: AnyPublisher<String, Never> {
       let selector = #selector(UISearchBarDelegate.searchBar(_:textDidChange:))
-      return delegateProxy
+      return
+        delegateProxy
         .interceptSelectorPublisher(selector)
         .map { $0[1] as! String }
         .eraseToAnyPublisher()
@@ -24,7 +25,8 @@
     /// Combine wrapper for `UISearchBarDelegate.searchBarSearchButtonClicked(_:)`
     public var searchButtonClicked: AnyPublisher<Void, Never> {
       let selector = #selector(UISearchBarDelegate.searchBarSearchButtonClicked(_:))
-      return delegateProxy
+      return
+        delegateProxy
         .interceptSelectorPublisher(selector)
         .map { _ in () }
         .eraseToAnyPublisher()
@@ -33,7 +35,8 @@
     /// Combine wrapper for `UISearchBarDelegate.searchBarCancelButtonClicked(_:)`
     public var cancelButtonClicked: AnyPublisher<Void, Never> {
       let selector = #selector(UISearchBarDelegate.searchBarCancelButtonClicked(_:))
-      return delegateProxy
+      return
+        delegateProxy
         .interceptSelectorPublisher(selector)
         .map { _ in () }
         .eraseToAnyPublisher()
