@@ -6,7 +6,7 @@
 //  Copyright © 2020 Combine Community. All rights reserved.
 //
 
-#if canImport(Combine) && canImport(CombineRuntime)
+#if canImport(Combine)
   import Foundation
   import CombineExtensions
   import CombineRuntime
