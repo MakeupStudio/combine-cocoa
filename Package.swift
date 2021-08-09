@@ -13,7 +13,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/makeupstudio/combine-extensions.git",
-      .branch("main")
+      .upToNextMinor(from: "0.0.1")
     )
   ],
   targets: [
