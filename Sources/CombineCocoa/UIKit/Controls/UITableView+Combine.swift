@@ -129,7 +129,7 @@
   }
 
   @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-  private class TableViewDelegateProxy: DelegateProxy, UITableViewDelegate, DelegateProxyType {
+  class TableViewDelegateProxy: ScrollViewDelegateProxy, UITableViewDelegate {
     func setDelegate(to object: UITableView) {
       object.delegate = self
     }

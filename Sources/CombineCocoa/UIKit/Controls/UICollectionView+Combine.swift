@@ -109,6 +109,20 @@
         .map { ($0[1] as! UICollectionReusableView, $0[2] as! String, $0[3] as! IndexPath) }
         .eraseToAnyPublisher()
     }
+    
+    public func didEndDeceleratingAtCell(
+      _ strategy: UICollectionViewActiveCellDetectionStrategy
+    ) -> AnyPublisher<UICollectionViewCell?, Never> {
+      Publishers.Merge3(
+        didEndDecelerating,
+        didEndScrollingAnimation,
+        didEndDragging.compactMap { willDecelerateLater in
+          return willDecelerateLater ? nil : ()
+        }.eraseToAnyPublisher()
+      ).map { [weak base] in
+        return base.flatMap(strategy.detect(in:))
+      }.eraseToAnyPublisher()
+    }
 
     private var delegateProxy: CollectionViewDelegateProxy {
       .createDelegateProxy(for: base)
@@ -116,13 +130,35 @@
   }
 
   @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-  private class CollectionViewDelegateProxy:
-    DelegateProxy,
-    UICollectionViewDelegate,
-    DelegateProxyType
+  class CollectionViewDelegateProxy:
+    ScrollViewDelegateProxy,
+    UICollectionViewDelegate
   {
     func setDelegate(to object: UICollectionView) {
       object.delegate = self
+    }
+  }
+
+  public struct UICollectionViewActiveCellDetectionStrategy {
+    let _detect: (UICollectionView) -> UICollectionViewCell?
+    public func detect(in collectionView: UICollectionView) -> UICollectionViewCell? {
+      return self._detect(collectionView)
+    }
+    
+    public static func custom(_ strategy: @escaping  (UICollectionView) -> UICollectionViewCell?) -> Self {
+      return UICollectionViewActiveCellDetectionStrategy(_detect: strategy)
+    }
+    
+    public static var largestVisibleCell: Self {
+      .custom { collectionView in
+        return collectionView.visibleCells.sorted { cell1, cell2 in
+          func area(for view: UIView, in superview: UIView) -> CGFloat {
+            let size = view.frame.intersection(superview.bounds).size
+            return size.height * size.width
+          }
+          return area(for: cell1, in: collectionView) > area(for: cell2, in: collectionView)
+        }.first
+      }
     }
   }
 #endif

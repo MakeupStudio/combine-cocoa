@@ -32,5 +32,47 @@
         .map { _ in () }
         .eraseToAnyPublisher()
     }
+    
+    public var didEndDecelerating: AnyPublisher<Void, Never> {
+      let selector = #selector(UIScrollViewDelegate.scrollViewDidEndDecelerating)
+      return delegateProxy.interceptSelectorPublisher(selector)
+        .map { _ in }
+        .eraseToAnyPublisher()
+    }
+    
+    public var didEndDragging: AnyPublisher<Bool, Never> {
+      let selector = #selector(UIScrollViewDelegate.scrollViewDidEndDragging)
+      return delegateProxy.interceptSelectorPublisher(selector)
+        .map { $0[1] as! Bool }
+        .eraseToAnyPublisher()
+    }
+    
+    public var didEndScrollingAnimation: AnyPublisher<Void, Never> {
+      let selector = #selector(UIScrollViewDelegate.scrollViewDidEndScrollingAnimation)
+      return delegateProxy.interceptSelectorPublisher(selector)
+        .map { _ in }
+        .eraseToAnyPublisher()
+    }
+    
+    private var delegateProxy: ScrollViewDelegateProxy {
+      if let base = base as? UITableView {
+        return TableViewDelegateProxy.createDelegateProxy(for: base)
+      } else if let base = base as? UICollectionView {
+        return CollectionViewDelegateProxy.createDelegateProxy(for: base)
+      } else {
+        return ScrollViewDelegateProxy.createDelegateProxy(for: base)
+      }
+    }
+  }
+
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+  internal class ScrollViewDelegateProxy:
+    DelegateProxy,
+    UIScrollViewDelegate,
+    DelegateProxyType
+  {
+    func setDelegate(to object: UIScrollView) {
+      object.delegate = self
+    }
   }
 #endif
