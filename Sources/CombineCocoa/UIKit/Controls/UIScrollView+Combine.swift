@@ -54,7 +54,7 @@
         .eraseToAnyPublisher()
     }
     
-    private var delegateProxy: ScrollViewDelegateProxy {
+    public var delegateProxy: ScrollViewDelegateProxy {
       if let base = base as? UITableView {
         return TableViewDelegateProxy.createDelegateProxy(for: base)
       } else if let base = base as? UICollectionView {
@@ -66,12 +66,12 @@
   }
 
   @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-  internal class ScrollViewDelegateProxy:
+  open class ScrollViewDelegateProxy:
     DelegateProxy,
     UIScrollViewDelegate,
     DelegateProxyType
   {
-    func setDelegate(to object: UIScrollView) {
+    public func setDelegate(to object: UIScrollView) {
       object.delegate = self
     }
   }

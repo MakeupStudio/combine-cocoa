@@ -124,17 +124,17 @@
       }.eraseToAnyPublisher()
     }
 
-    private var delegateProxy: CollectionViewDelegateProxy {
+    public var delegateProxy: CollectionViewDelegateProxy {
       .createDelegateProxy(for: base)
     }
   }
 
   @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-  class CollectionViewDelegateProxy:
+  open class CollectionViewDelegateProxy:
     ScrollViewDelegateProxy,
     UICollectionViewDelegate
   {
-    func setDelegate(to object: UICollectionView) {
+    public func setDelegate(to object: UICollectionView) {
       object.delegate = self
     }
   }

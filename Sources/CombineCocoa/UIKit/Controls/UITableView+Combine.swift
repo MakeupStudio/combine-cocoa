@@ -123,14 +123,14 @@
         .eraseToAnyPublisher()
     }
 
-    private var delegateProxy: TableViewDelegateProxy {
+    public var delegateProxy: TableViewDelegateProxy {
       .createDelegateProxy(for: base)
     }
   }
 
   @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-  class TableViewDelegateProxy: ScrollViewDelegateProxy, UITableViewDelegate {
-    func setDelegate(to object: UITableView) {
+  open class TableViewDelegateProxy: ScrollViewDelegateProxy, UITableViewDelegate {
+    public func setDelegate(to object: UITableView) {
       object.delegate = self
     }
   }

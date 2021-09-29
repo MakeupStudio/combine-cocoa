@@ -39,18 +39,18 @@
         .eraseToAnyPublisher()
     }
 
-    private var delegateProxy: NSTextStorageDelegateProxy {
+    public var delegateProxy: NSTextStorageDelegateProxy {
       .createDelegateProxy(for: base)
     }
   }
 
   @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-  private class NSTextStorageDelegateProxy:
+  open class NSTextStorageDelegateProxy:
     DelegateProxy,
     NSTextStorageDelegate,
     DelegateProxyType
   {
-    func setDelegate(to object: NSTextStorage) {
+    public func setDelegate(to object: NSTextStorage) {
       object.delegate = self
     }
   }
