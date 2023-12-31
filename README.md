@@ -1,3 +1,3 @@
 # combine-cocoa
 
-A description of this package.
+Moved to [`https://github.com/capturecontext/combine-cocoa`](https://github.com/capturecontext/combine-cocoa)
